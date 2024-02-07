@@ -9,3 +9,76 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  firstName    String
+  lastName     String
+  email        String   @unique
+  password     String
+  isVerified   Boolean  @default(false)
+  isPassed     Boolean  @default(false)
+  photo        String?
+  aadharNumber String?
+  aadharPhoto  String?
+  address      Address?
+  contactNo    String?
+  test         Test[]
+  License      License?
+}
+
+model Question {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  question String
+  options  String[]
+  answer   Int
+  category Category
+}
+
+model Test {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  score     Score[]
+  createdAt DateTime @default(now())
+}
+
+model License {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String   @unique @db.ObjectId
+  user         User     @relation(fields: [userId], references: [id])
+  licenseNo    String
+  licensePhoto String
+  createdAt    DateTime @default(now())
+  type         Type
+  dateOfIssue  DateTime @default(now())
+  dateOfExpiry DateTime
+}
+
+enum Type {
+  TWO_WHEELER
+  FOUR_WHEELER
+  HEAVY_VEHICLE
+}
+
+enum Category {
+  BASIC_UNDERSTANDING
+  ROAD_KNOWLEDGE
+  PUBLIC_SAFETY
+  TRAFFIC_RULES
+}
+
+type Score {
+  score    Int
+  category Json
+}
+
+type Address {
+  houseNo String
+  street  String
+  area    String
+  city    String
+  state   String
+  pincode String
+  country String
+}

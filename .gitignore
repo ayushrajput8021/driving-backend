@@ -1,7 +1,6 @@
 # Prisma
 /prisma/.env
 /prisma/.prisma
-/prisma/migration
 /prisma/schema
 /prisma/client
 /prisma/.DS_Store
