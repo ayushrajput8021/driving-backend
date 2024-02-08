@@ -74,6 +74,7 @@ export async function signin(req: Request, res: Response) {
 		}
 		const secret: string = process.env.JWT_SECRET || 'default-secret';
 		const token: string = jwt.sign({ id: user.id, email: user.email }, secret);
+		
 		return res.status(200).json({
 			Status: 'Success',
 			message: 'User signed in successfully',

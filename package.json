@@ -7,7 +7,7 @@
     "prisma": "npx prisma generate",
     "load-data": "tsc -b && node ./dist/utils/dataLoader.js",
     "dev": "nodemon",
-    "prod": "tsc -b && node ./dist/server.js"
+    "prod": "tsc && node ./dist/server.js"
   },
   "author": "Ayush Rajput",
   "license": "ISC",

@@ -10,6 +10,31 @@ import path from 'path';
 
 const prisma = new PrismaClient();
 
+export async function dashboard(req: Request, res: Response) {
+	try {
+		const selectedUser = await prisma.user.findFirst({where:{id:req.user.id},select:{
+			firstName:true,
+			lastName:true,
+			photo:true,
+			isPassed:true,
+			isVerified:true,
+		}})
+		if(!selectedUser){
+			throw new ApiError(404, 'User not found');
+		}
+		const userTests = await prisma.test.findMany({where:{userId:req.user.id},select:{
+			createdAt:true,
+			score:true,
+		}});
+		if(!userTests){
+			return res.status(200).json({ Status: 'Success', data: selectedUser});
+		}
+		return res.status(200).json({ Status: 'Success', data: selectedUser, tests: userTests});
+	} catch (error: any) {
+		new ApiError(500, 'Error while getting user information', error.message);
+	}
+}
+
 export async function profile(req: Request, res: Response) {
 	try {
 		const user = await prisma.user.findUnique({
