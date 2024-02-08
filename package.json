@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prisma": "npx prisma generate",
+    "prisma": "prisma generate",
     "load-data": "tsc -b && node ./dist/utils/dataLoader.js",
     "dev": "nodemon",
     "build": "tsc",
