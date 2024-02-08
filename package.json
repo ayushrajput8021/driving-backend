@@ -7,7 +7,7 @@
     "prisma": "prisma generate",
     "load-data": "tsc -b && node ./dist/utils/dataLoader.js",
     "dev": "nodemon",
-    "build": "tsc",
+    "build": "tsc && prisma generate",
     "start": "node ./dist/server.js"
   },
   "author": "Ayush Rajput",
