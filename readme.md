@@ -52,7 +52,8 @@ npm run dev
 
 ### For production
 
-npm run prod
+npm run build
+npm run start
 
 ## Usage
 
